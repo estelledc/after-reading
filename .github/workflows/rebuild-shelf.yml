@@ -25,10 +25,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install pyyaml
 
-      - name: Fetch weread shelf
+      - name: Fetch weread shelf (soft-fail; cached fallback)
+        id: fetch
+        continue-on-error: true
         env:
           WEREAD_API_KEY: ${{ secrets.WEREAD_API_KEY }}
         run: python scripts/fetch_weread.py
+
+      - name: Note fetch failure (cached data still used)
+        if: steps.fetch.outcome == 'failure'
+        run: |
+          echo "::warning::weread fetch failed (likely -202 session warm-up on Actions IP). Using cached data/raw-shelf.json."
 
       - name: Build shelf
         run: python scripts/build_shelf.py
