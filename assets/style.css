@@ -293,5 +293,15 @@ body {
     --muted: #9d958a;
     --rule: rgba(235, 228, 214, 0.14);
     --code-bg: #221d17;
+    /* 与 jx/tokens.css dark 分支对齐：本文件顶部 :root 的 light 值会覆盖 jx 的 dark，
+       所以这里把 jx- 系列也跟着切到 dark，保持 masthead/footer 等 chrome 层在 dark 下不再白底黑字 */
+    --jx-paper: #0e1014;
+    --jx-surface: #161922;
+    --jx-surface-sunk: #0a0c10;
+    --jx-ink: #ebecef;
+    --jx-ink-2: #b0b4bd;
+    --jx-ink-muted: #7c818c;
+    --jx-rule: rgba(255,255,255,0.10);
+    --jx-rule-strong: rgba(255,255,255,0.30);
   }
 }

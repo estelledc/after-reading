@@ -190,7 +190,6 @@ def render_html(shelf: dict, curation: dict, takes: dict, identity: dict) -> str
         <span lang="en">SHELF · MMXXVI</span>
       </div>
       <nav class="jx-footer__index">
-        <a href="https://estelledc.github.io/">回 hub</a>
         <a href="https://github.com/estelledc/after-reading">github</a>
       </nav>
       <time class="jx-footer__stamp" datetime="{build_date}" lang="en">{build_date_dot}</time>
