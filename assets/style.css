@@ -1,3 +1,32 @@
+/* after-reading · Jason DS layer 2 override：publication 深绿 + serif content allowance */
+:root {
+  --jx-paper: #fafaf7;
+  --jx-surface: #ffffff;
+  --jx-surface-sunk: #f1efe9;
+  --jx-ink: #1a1a1a;
+  --jx-ink-2: #2d2d2d;
+  --jx-ink-muted: #6b6862;
+  --jx-rule: rgba(0,0,0,0.10);
+  --jx-rule-strong: rgba(0,0,0,0.30);
+  --jx-accent: #2a4d3a;
+  --jx-accent-hub: #2240d6;
+}
+
+/* after-reading allowance：内容容器（书评/笔记）允许 serif body */
+.book-take,
+.book-title,
+article {
+  font-family: var(--jx-font-display);
+}
+
+/* chrome 层强制 sans */
+.book-meta,
+.jx-footer,
+.jx-chip,
+.jx-return-to-hub {
+  font-family: var(--jx-font-mono);
+}
+
 /* after-reading · Jason 的书架 · publication design system */
 
 :root {

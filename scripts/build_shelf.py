@@ -149,6 +149,7 @@ def render_html(shelf: dict, curation: dict, takes: dict, identity: dict) -> str
     timeline = escape(identity.get("timeline_narrative", ""))
     hero_lead = escape(identity.get("hero_lead", ""))
     build_date = datetime.datetime.now().strftime("%Y-%m-%d")
+    build_date_dot = datetime.datetime.now().strftime("%Y·%m·%d")
 
     return f"""<!doctype html>
 <html lang="zh-CN">
@@ -157,13 +158,16 @@ def render_html(shelf: dict, curation: dict, takes: dict, identity: dict) -> str
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Jason 的书架 · after-reading</title>
   <meta name="description" content="73 本完读书 · 5 本深度笔记 · 用阅读轨迹做自我表达">
+  <link rel="stylesheet" href="assets/jx/tokens.css">
+  <link rel="stylesheet" href="assets/jx/base.css">
+  <link rel="stylesheet" href="assets/jx/components.css">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
   <div class="shell">
     <header class="masthead">
       <h1 class="mast-title">after-reading</h1>
-      <a class="return-to-hub" href="https://estelledc.github.io/" rel="home">← estelledc.github.io</a>
+      <a class="jx-return-to-hub" href="https://estelledc.github.io/" rel="home">回 Jason 主站</a>
     </header>
 
     <section class="hero">
@@ -180,12 +184,16 @@ def render_html(shelf: dict, curation: dict, takes: dict, identity: dict) -> str
 
     {sections_html}
 
-    <footer class="site-footer">
-      <p>
-        2026 · Jason Xun ·
-        <a href="https://github.com/estelledc/after-reading" target="_blank" rel="noopener">GitHub</a>
-        · last build {build_date}
-      </p>
+    <footer class="jx-footer">
+      <div class="jx-footer__colophon">
+        <strong>after-reading</strong>
+        <span lang="en">SHELF · MMXXVI</span>
+      </div>
+      <nav class="jx-footer__index">
+        <a href="https://estelledc.github.io/">回 hub</a>
+        <a href="https://github.com/estelledc/after-reading">github</a>
+      </nav>
+      <time class="jx-footer__stamp" datetime="{build_date}" lang="en">{build_date_dot}</time>
     </footer>
   </div>
 </body>
