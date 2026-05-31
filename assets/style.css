@@ -252,3 +252,17 @@ body {
     padding: 1.5rem;
   }
 }
+
+/* —— Dark mode (system-following only) —— */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --paper: #1a1612;
+    --ink: #ebe4d6;
+    --accent: #d68a5b;
+    --accent-soft: rgba(214, 138, 91, 0.18);
+    --muted: #9d958a;
+    --rule: rgba(235, 228, 214, 0.14);
+    --code-bg: #221d17;
+  }
+}
