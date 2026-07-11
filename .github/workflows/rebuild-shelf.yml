@@ -13,10 +13,10 @@ jobs:
       contents: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: '3.12'
 
@@ -40,14 +40,20 @@ jobs:
       - name: Build shelf
         run: python scripts/build_shelf.py
 
+      - name: Validate public shelf contract
+        run: python scripts/validate_shelf.py
+
+      - name: Run regression tests
+        run: python -m unittest discover -s tests -v
+
       - name: Commit & push if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet -- index.html data/raw-shelf.json; then
+          if git diff --quiet -- index.html shelf.html 404.html robots.txt sitemap.xml '划线/划线.html' data/raw-shelf.json; then
             echo "No changes, skip commit."
           else
-            git add index.html data/raw-shelf.json
+            git add index.html shelf.html 404.html robots.txt sitemap.xml '划线/划线.html' data/raw-shelf.json
             git commit -m "chore: weekly weread shelf sync (auto)"
             git push
           fi
