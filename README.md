@@ -2,7 +2,7 @@
 
 一个把原始阅读记录、人工策展、短判断与时间轨迹串起来的公开阅读系统。
 
-[在线书架](https://estelledc.github.io/after-reading/) · [Jason Hub](https://estelledc.github.io/) · [About](https://estelledc.github.io/about/) · [Resume](https://estelledc.github.io/resume/)
+[编辑首页](https://estelledc.github.io/after-reading/) · [完整书架](https://estelledc.github.io/after-reading/shelf.html) · [Jason Hub](https://estelledc.github.io/) · [About](https://estelledc.github.io/about/) · [Resume](https://estelledc.github.io/resume/)
 
 ## 它解决什么
 
@@ -15,6 +15,7 @@
 - 73 个唯一策展 ID，全部能在原始缓存中找到，且源字段 `finishReading=1`。
 - 8 个由人工维护的分类。
 - 73/73 个策展条目具备对应的一句话判断。
+- 3 条阅读星座，每条从完整书架中选取 3 本，以现有个人判断建立跨题材关系。
 - 4 个按书组织的笔记目录，以及 1 组早期划线实验；深浅不同，因此不统一称作“深度笔记”。
 
 这些数字描述的是当前仓库状态，不代表阅读效果、知识留存或笔记质量。
@@ -27,16 +28,16 @@ data/raw-shelf.json
 content/curation.yaml + content/jason-takes.md + content/identity.md
         ↓
 scripts/build_shelf.py
-        ↓
-index.html
+        ├── index.html（3 条编辑型阅读星座）
+        └── shelf.html（73 本完整可搜索书架）
         ↓
 scripts/validate_shelf.py
 ```
 
 - `raw-shelf.json` 保存同步缓存，不直接等于公开书架。
-- `curation.yaml` 决定公开范围与分类。
+- `curation.yaml` 决定公开范围、分类与 3 条阅读星座。
 - `jason-takes.md` 保存短判断，`identity.md` 保存页面叙事。
-- 生成器输出无框架的静态页面；验证器检查数据匹配、完读标记、唯一性、点评覆盖、页面结构、可访问入口与分享 metadata。
+- 生成器输出无框架的双静态主页面，以及 `404.html`、`robots.txt`、`sitemap.xml` 和经过清理的旧划线 URL。`shelf.html` 的搜索是渐进增强，关闭 JavaScript 时仍展示全部书目。验证器检查数据匹配、完读标记、唯一性、点评覆盖、页面结构、全局出口、爬虫边界与分享 metadata。
 
 ## Jason 与 AI 的边界
 
@@ -49,11 +50,11 @@ Jason 决定公开书目、分类、哪些判断可以代表自己，并负责�
 需要 Python 3 和 PyYAML：
 
 ```bash
-python -m pip install pyyaml
-python scripts/build_shelf.py
-python scripts/build_shelf.py --check
-python scripts/validate_shelf.py
-python -m unittest discover -s tests -v
+python3 -m pip install pyyaml
+python3 scripts/build_shelf.py
+python3 scripts/build_shelf.py --check
+python3 scripts/validate_shelf.py
+python3 -m unittest discover -s tests -v
 ```
 
 ## Limitations
