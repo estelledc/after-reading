@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>after-reading</title>
+  <rect width="64" height="64" rx="14" fill="#2a4d3a"/>
+  <path d="M13 18c7-2 13 0 19 5v28c-6-5-12-7-19-5V18Z" fill="#fafaf7"/>
+  <path d="M51 18c-7-2-13 0-19 5v28c6-5 12-7 19-5V18Z" fill="#fafaf7" opacity=".84"/>
+  <path d="M32 23v28" stroke="#1a1a1a" stroke-width="2"/>
+</svg>
