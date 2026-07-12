@@ -267,6 +267,27 @@ def validate() -> tuple[list[str], dict[str, int]]:
         if not os.path.isfile(os.path.join(build_shelf.ROOT, stylesheet)):
             errors.append(f"stylesheet file is missing: {stylesheet}")
 
+    style_path = os.path.join(build_shelf.ROOT, "assets", "style.css")
+    try:
+        with open(style_path, encoding="utf-8") as handle:
+            motion_css = handle.read()
+        motion_blockers = (
+            ("transition: all", "transition: all"),
+            ("transition-duration: 0.01ms", "global zero-duration motion reset"),
+            ("scale(0)", "scale(0)"),
+        )
+        for marker, label in motion_blockers:
+            if marker in motion_css:
+                errors.append(f"assets/style.css: motion contract forbids {label}")
+        for marker in (
+            "@media (hover: hover) and (pointer: fine)",
+            "@media (prefers-reduced-motion: reduce)",
+        ):
+            if marker not in motion_css:
+                errors.append(f"assets/style.css: motion contract missing {marker}")
+    except OSError:
+        errors.append("assets/style.css is missing")
+
     favicon = os.path.join(build_shelf.ROOT, "assets", "favicon.svg")
     for name, (html, _, _) in pages.items():
         if 'rel="icon" href="assets/favicon.svg"' not in html:
@@ -365,8 +386,8 @@ def validate() -> tuple[list[str], dict[str, int]]:
     try:
         with open(version_path, encoding="utf-8") as handle:
             version = handle.read().strip()
-        if version != "2.1.0":
-            errors.append(f"expected Jason DS 2.1.0, found {version or 'empty'}")
+        if version != "2.2.0":
+            errors.append(f"expected Jason DS 2.2.0, found {version or 'empty'}")
     except OSError:
         errors.append("Jason DS version file is missing")
 
