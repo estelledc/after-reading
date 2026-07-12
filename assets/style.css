@@ -341,7 +341,7 @@ body {
   text-decoration: none;
   transition: color var(--jx-duration-fast) var(--jx-easing),
               box-shadow var(--jx-duration-fast) var(--jx-easing),
-              transform var(--jx-duration-fast) var(--jx-easing);
+              transform var(--jx-duration-press) var(--jx-ease-out);
 }
 
 .note-archive::after {
@@ -351,12 +351,6 @@ body {
   font-size: var(--jx-fs-micro);
   letter-spacing: var(--jx-tracking-eyebrow);
   text-transform: uppercase;
-}
-
-.note-archive:hover {
-  color: var(--jx-accent);
-  box-shadow: var(--jx-shadow-stack);
-  transform: translateY(-2px);
 }
 
 .note-archive strong {
@@ -421,8 +415,14 @@ body {
 
 .timeline-details summary::-webkit-details-marker,
 .method-section > summary::-webkit-details-marker { display: none; }
-.timeline-details summary::after { content: "+"; color: var(--jx-accent); }
-.timeline-details[open] summary::after { content: "−"; }
+.timeline-details summary::after {
+  content: "›";
+  color: var(--jx-accent);
+  font-size: 1.2em;
+  transform: rotate(0deg);
+  transition: transform var(--jx-duration-press) var(--jx-ease-out);
+}
+.timeline-details[open] summary::after { transform: rotate(90deg); }
 .timeline-details .timeline-narrative { padding-bottom: var(--jx-space-6); }
 
 /* The process is available without dominating the personal landing. */
@@ -455,8 +455,14 @@ body {
   font-weight: var(--jx-weight-reading);
 }
 
-.method-section > summary::after { content: "+"; color: var(--jx-accent); font-size: var(--jx-fs-xl); }
-.method-section[open] > summary::after { content: "−"; }
+.method-section > summary::after {
+  content: "›";
+  color: var(--jx-accent);
+  font-size: var(--jx-fs-xl);
+  transform: rotate(0deg);
+  transition: transform var(--jx-duration-press) var(--jx-ease-out);
+}
+.method-section[open] > summary::after { transform: rotate(90deg); }
 
 .method-body { padding: var(--jx-space-5) 0 var(--jx-space-7); }
 .method-body .jx-case-question { margin-bottom: var(--jx-space-5); border-radius: 0; }
@@ -875,6 +881,26 @@ body {
 
   .method-section > summary strong { grid-column: 1; }
   .method-section > summary::after { grid-column: 2; grid-row: 1 / span 2; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .note-archive:hover {
+    color: var(--jx-accent);
+    box-shadow: var(--jx-shadow-stack);
+    transform: translateY(-1px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .note-archive {
+    transform: none !important;
+    transition-property: color, box-shadow;
+  }
+
+  .timeline-details summary::after,
+  .method-section > summary::after {
+    transition: none;
+  }
 }
 
 /* System-following dark mode */
